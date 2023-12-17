@@ -3,10 +3,12 @@
 <%# Pass :article object to form_for helper and
 use the FormBuilder  object to build 
 two text fields (:title, :text) with 
-labels (:title, :text) %>
+labels (:title, :text).
+Point form submit action to the create url 
+(articles_path) to create a new article %>
 
 
-<%= form_for :article do |f| %>
+<%= form_for :article, url: articles_path do |f| %>
     <p>
         <%= f.label :title %><br>
         <%= f.text_field :title %>
