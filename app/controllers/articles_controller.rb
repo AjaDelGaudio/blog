@@ -11,13 +11,19 @@ class ArticlesController < ApplicationController
     end
     
     def new
+        @article= Article.new
     end
     
     def create
         @article = Article.new(article_params)
         
-        @article.save
-        redirect_to @article
+        if @article.save
+            # if save successful, redirect user with a new request
+            redirect_to @article
+        else
+            # if save fails, render within the same request as the form submission
+            render 'new'
+        end
     end
     
     private
