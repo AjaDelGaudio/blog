@@ -2,6 +2,14 @@ class ArticlesController < ApplicationController
     
     # Define methods that will become the CRUD actions for this controller
     
+    def index
+        @articles = Article.all
+    end
+    
+    def show
+        @article = Article.find(params[:id])
+    end
+    
     def new
     end
     
