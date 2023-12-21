@@ -1,5 +1,6 @@
 <h1>New Articles</h1>
 
+
 <%# Pass :article object to form_for helper and
 use the FormBuilder  object to build 
 two text fields (:title, :text) with 
@@ -7,8 +8,25 @@ labels (:title, :text).
 Point form submit action to the create url 
 (articles_path) to create a new article %>
 
-
 <%= form_for :article, url: articles_path do |f| %>
+    <%# Check for any errors and if any found, 
+    show them in a list in an error message. 
+    Uses the rails helper 'pluralize' to inspect arguments
+    (number, string) and if the number is greater than 1, 
+    make the string plural %>
+    <% if @article.errors.any? %>
+        <div id="error_explanation">
+            <h2>
+                <%= pluralize(@article.errors.count, "error") %> stopped this article from being saved:
+            </h2>
+            <ul>
+                <% @article.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
     <p>
         <%= f.label :title %><br>
         <%= f.text_field :title %>
