@@ -11,18 +11,21 @@ class ArticlesController < ApplicationController
     end
     
     def new
-        @article= Article.new
+        @article = Article.new
     end
     
     def create
         @article = Article.new(article_params)
         
-        if @article.save
-            # if save successful, redirect user with a new request
-            redirect_to @article
+        # if save successful, redirect user with a new request
+        if @article.valid?
+            redirect_to article_path(@article)
+        
+        #if save fails, redirect user with a new request with error messages
         else
-            # if save fails, render within the same request as the form submission
-            render 'new'
+            flash[:errors] = @article.errors.full_messages
+            redirect_to new_article_path
+           
         end
     end
     
